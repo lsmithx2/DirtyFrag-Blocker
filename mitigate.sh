@@ -25,6 +25,9 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
+# Ensure log file exists and is writable
+touch "$LOG_FILE" 2>/dev/null
+
 log_message() {
     echo -e "$(date '+%Y-%m-%d %H:%M:%S') - $1" >> "$LOG_FILE"
 }
@@ -55,6 +58,7 @@ check_status() {
     else
         echo -e "\n${GREEN}STATUS:${NC} Vulnerable modules are not active."
     fi
+    echo ""
     read -p "Press enter to return to menu..."
 }
 
@@ -110,13 +114,13 @@ while true; do
     echo "3) Rollback mitigation (Restore functions)"
     echo "4) Exit"
     echo -e "${BLUE}=====================================================${NC}"
-    read -p "Selection: " choice
+    read -p "Selection [1-4]: " choice
 
     case $choice in
         1) check_status ;;
         2) apply_mitigation ;;
         3) remove_mitigation ;;
-        4) exit 0 ;;
+        4) echo "Exiting."; exit 0 ;;
         *) echo -e "${RED}Invalid selection.${NC}"; sleep 1 ;;
     esac
 done
