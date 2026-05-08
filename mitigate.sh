@@ -1,8 +1,9 @@
 #!/bin/bash
 
 # =================================================================
-# DIRTY FRAG & COPY FAIL 2 - HARDENING TOOL v2.1
-# REPO: github.com/lsmithx2/DIRTY-FRAG-COPY-FAIL-2---MITIGATION-TOOL
+# TITLE: DirtyFrag-Blocker v2.1
+# REPO: github.com/lsmithx2/DirtyFrag-Blocker
+# DESCRIPTION: Emergency mitigation for CVE-2026-3491 & Copy Fail 2
 # =================================================================
 
 CONF_FILE="/etc/modprobe.d/dirtyfrag_mitigation.conf"
@@ -25,10 +26,11 @@ check_root() {
 }
 
 draw_header() {
+    clear
     echo -e "${CYAN}┌───────────────────────────────────────────────────┐${NC}"
     echo -e "${CYAN}│${NC}  ${BOLD}DIRTY FRAG & COPY FAIL 2 - MITIGATION TOOL v2.1${NC}  ${CYAN}│${NC}"
     echo -e "${CYAN}└───────────────────────────────────────────────────┘${NC}"
-    echo -e "${BLUE}  Kernel:$(uname -r)  |  User:$(whoami)${NC}"
+    echo -e "${BLUE}  Kernel: $(uname -r)  |  User: $(whoami)${NC}"
 }
 
 check_status() {
@@ -111,6 +113,7 @@ while true; do
     echo -e "${CYAN}─────────────────────────────────────────────────────${NC}"
     echo -ne "${BOLD}Selection [1-4]: ${NC}"
     
+    # Force read from terminal to prevent infinite piping loops
     read choice < /dev/tty
 
     case "$choice" in
@@ -118,6 +121,7 @@ while true; do
         2) apply_mitigation ;;
         3) rollback ;;
         4) echo -e "${CYAN}Stay safe.${NC}"; exit 0 ;;
+        "") continue ;; # Handle empty enters gracefully
         *) echo -e "${RED}Invalid input.${NC}"; sleep 1 ;;
     esac
 done
