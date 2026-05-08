@@ -21,4 +21,4 @@ You can run the script directly via `curl` for a quick audit, or clone the repos
 ### Option 1: Quick Audit (Safe)
 This will download and launch the interface without making any changes until you select "Secure."
 ```bash
-curl -sSL [https://raw.githubusercontent.com/lsmithx2/DirtyFrag-Blocker/main/mitigate.sh](https://raw.githubusercontent.com/lsmithx2/DirtyFrag-Blocker/main/mitigate.sh) | sudo bash
+curl -sSL https://raw.githubusercontent.com/lsmithx2/DirtyFrag-Blocker/main/mitigate.sh | sudo bash
